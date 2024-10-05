@@ -10,6 +10,6 @@ public class PostFabric {
         } else {
             post = new VKRepost(item);
         }
-        return post;
+        return new PostTextConverter(post);
     }
 }

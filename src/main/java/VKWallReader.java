@@ -12,12 +12,14 @@ import java.util.List;
 public class VKWallReader implements Iterator<WallItem> {
     private final VkApiClient vk = new VkApiClient(new HttpTransportClient());
     private final String securityKey;
+    private final String groupId;
     private int offset = 0;
     private List<WallItem> posts;
     private int position = 99;
 
-    public VKWallReader(String secKey) {
+    public VKWallReader(String secKey, String groupId) {
         this.securityKey = secKey;
+        this.groupId = groupId;
 
     }
 
@@ -29,7 +31,7 @@ public class VKWallReader implements Iterator<WallItem> {
                     .getExtended(new ServiceActor(52347151, securityKey))
                     .offset(offset)
                     .count(100)
-                    .domain("-171396054")
+                    .domain(groupId)
                     .execute();
         } catch (ClientException | ApiException e) {
             throw new RuntimeException(e);
